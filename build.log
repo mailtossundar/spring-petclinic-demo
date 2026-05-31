@@ -1,0 +1,128 @@
+May 31, 2026 10:15:28 AM org.jline.utils.Log logr
+WARNING: Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
+[main] WARNING org.jline - Unable to create a system terminal, creating a dumb terminal (enable debug logging for more information)
+[INFO] Processing build on daemon 2f104086
+[INFO] Scanning for projects...
+[INFO] BuildTimeEventSpy is registered.
+[INFO] 
+[INFO] Using the SmartBuilder implementation with a thread count of 11
+[INFO] 
+[INFO] ------------< org.springframework.samples:spring-petclinic >------------
+[INFO] Building petclinic 4.0.0-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- clean:3.5.0:clean (default-clean) @ spring-petclinic ---
+[INFO] Deleting C:\Projects\spring-petclinic\target
+[INFO] 
+[INFO] --- enforcer:3.6.2:enforce (enforce-java) @ spring-petclinic ---
+[INFO] Rule 0: org.apache.maven.enforcer.rules.version.RequireJavaVersion passed
+[INFO] 
+[INFO] --- spring-javaformat:0.0.47:validate (default) @ spring-petclinic ---
+[INFO] 
+[INFO] --- checkstyle:3.6.0:check (nohttp-checkstyle-validation) @ spring-petclinic ---
+[INFO] You have 0 Checkstyle violations.
+[INFO] 
+[INFO] --- jacoco:0.8.14:prepare-agent (default) @ spring-petclinic ---
+[INFO] argLine set to -javaagent:C:\\Users\\sunda\\.m2\\repository\\org\\jacoco\\org.jacoco.agent\\0.8.14\\org.jacoco.agent-0.8.14-runtime.jar=destfile=C:\\Projects\\spring-petclinic\\target\\jacoco.exec
+[INFO] 
+[INFO] --- git-commit-id:9.0.2:revision (default) @ spring-petclinic ---
+[INFO] dotGitDirectory 'C:\Projects\spring-petclinic\.git'
+[INFO] Collected git.build.user.name with value sundaramoorthy
+[INFO] Collected git.build.user.email with value mailtossundar@gmail.com
+[INFO] Collected git.branch with value main
+[INFO] Collected git.commit.id.describe with value 21e78f0
+[INFO] Collected git.commit.id.describe-short with value 21e78f0
+[INFO] Collected git.commit.id with value 21e78f017ec3e8a3355bc2609105e4718608aa57
+[INFO] Collected git.commit.id.abbrev with value 21e78f0
+[INFO] Collected git.dirty with value false
+[INFO] Collected git.commit.user.name with value sundaramoorthy
+[INFO] Collected git.commit.user.email with value mailtossundar@gmail.com
+[INFO] Collected git.commit.message.full with value initial commit
+[INFO] Collected git.commit.message.short with value initial commit
+[INFO] Collected git.commit.time with value 2026-05-16T13:27:37+05:30
+[INFO] Collected git.commit.author.time with value 2026-05-16T13:27:37+05:30
+[INFO] Collected git.commit.committer.time with value 2026-05-16T13:27:37+05:30
+[INFO] Collected git.remote.origin.url with value https://github.com/mailtossundar/spring-petclinic-demo.git
+[INFO] Collected git.tags with value 
+[INFO] Collected git.tag with value 
+[INFO] Collected git.closest.tag.name with value 
+[INFO] Collected git.closest.tag.commit.count with value 
+[INFO] Collected git.total.commit.count with value 1026
+[INFO] Collected git.local.branch.ahead with value 0
+[INFO] Collected git.local.branch.behind with value 0
+[INFO] Collected git.build.time with value 2024-11-28T20:07:52+05:30
+[INFO] Collected git.build.version with value 4.0.0-SNAPSHOT
+[INFO] Collected git.build.host with value DESKTOP-K1ALGJJ
+[INFO] including property 'git.tags' in results
+[INFO] including property 'git.build.version' in results
+[INFO] including property 'git.branch' in results
+[INFO] including property 'git.build.host' in results
+[INFO] including property 'git.commit.id' in results
+[INFO] including property 'git.commit.user.email' in results
+[INFO] including property 'git.local.branch.behind' in results
+[INFO] including property 'git.commit.author.time' in results
+[INFO] including property 'git.build.user.name' in results
+[INFO] including property 'git.dirty' in results
+[INFO] including property 'git.closest.tag.commit.count' in results
+[INFO] including property 'git.commit.user.name' in results
+[INFO] including property 'git.commit.id.abbrev' in results
+[INFO] including property 'git.commit.id.describe-short' in results
+[INFO] including property 'git.total.commit.count' in results
+[INFO] including property 'git.commit.id.describe' in results
+[INFO] including property 'git.build.user.email' in results
+[INFO] including property 'git.commit.message.short' in results
+[INFO] including property 'git.commit.committer.time' in results
+[INFO] including property 'git.tag' in results
+[INFO] including property 'git.closest.tag.name' in results
+[INFO] including property 'git.local.branch.ahead' in results
+[INFO] including property 'git.commit.time' in results
+[INFO] including property 'git.build.time' in results
+[INFO] including property 'git.commit.message.full' in results
+[INFO] including property 'git.remote.origin.url' in results
+[INFO] Writing properties file [C:\Projects\spring-petclinic\target\classes\git.properties] (for project petclinic)...
+[INFO] 
+[INFO] --- spring-boot:4.0.3:build-info (default) @ spring-petclinic ---
+[INFO] 
+[INFO] --- cyclonedx:2.9.1:makeAggregateBom (default) @ spring-petclinic ---
+[INFO] CycloneDX: Resolving Dependencies
+[INFO] CycloneDX: Creating BOM version 1.6 with 108 component(s)
+[INFO] CycloneDX: Writing and validating BOM (JSON): C:\Projects\spring-petclinic\target\classes\META-INF\sbom\application.cdx.json
+[WARNING] Unknown keyword meta:enum - you should define your own Meta Schema. If the keyword is irrelevant for validation, just use a NonValidationKeyword or if it should generate annotations AnnotationKeyword
+[WARNING] Unknown keyword deprecated - you should define your own Meta Schema. If the keyword is irrelevant for validation, just use a NonValidationKeyword or if it should generate annotations AnnotationKeyword
+[INFO]            attaching as spring-petclinic-4.0.0-SNAPSHOT-cyclonedx.json
+[INFO] 
+[INFO] --- resources:3.3.1:resources (default-resources) @ spring-petclinic ---
+[INFO] Copying 3 resources from src\main\resources to target\classes
+[INFO] Copying 45 resources from src\main\resources to target\classes
+[INFO] 
+[INFO] --- compiler:3.14.1:compile (default-compile) @ spring-petclinic ---
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 30 source files with javac [debug parameters release 17] to target\classes
+[INFO] 
+[INFO] --- resources:3.3.1:testResources (default-testResources) @ spring-petclinic ---
+[INFO] skip non existing resourceDirectory C:\Projects\spring-petclinic\src\test\resources
+[INFO] 
+[INFO] --- compiler:3.14.1:testCompile (default-testCompile) @ spring-petclinic ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 17 source files with javac [debug parameters release 17] to target\test-classes
+[INFO] 
+[INFO] --- surefire:3.5.4:test (default-test) @ spring-petclinic ---
+[WARNING]  Parameter 'systemProperties' is deprecated: Use systemPropertyVariables instead.
+[INFO] Tests are skipped.
+[INFO] 
+[INFO] --- jacoco:0.8.14:report (report) @ spring-petclinic ---
+[INFO] Skipping JaCoCo execution due to missing execution data file.
+[INFO] 
+[INFO] --- jar:3.4.2:jar (default-jar) @ spring-petclinic ---
+[INFO] Building jar: C:\Projects\spring-petclinic\target\spring-petclinic-4.0.0-SNAPSHOT.jar
+[INFO] 
+[INFO] --- spring-boot:4.0.3:repackage (repackage) @ spring-petclinic ---
+[INFO] Replacing main artifact C:\Projects\spring-petclinic\target\spring-petclinic-4.0.0-SNAPSHOT.jar with repackaged archive, adding nested dependencies in BOOT-INF/.
+[INFO] The original artifact has been renamed to C:\Projects\spring-petclinic\target\spring-petclinic-4.0.0-SNAPSHOT.jar.original
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  16.487 s (Wall Clock)
+[INFO] Finished at: 2026-05-31T10:15:46+05:30
+[INFO] ------------------------------------------------------------------------
