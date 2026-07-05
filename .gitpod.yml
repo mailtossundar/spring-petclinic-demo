@@ -1,4 +1,4 @@
-image:
+ - image:
   file: ./.devcontainer/Dockerfile
 tasks:
   - before: sudo usermod -a -G sdkman gitpod && sudo usermod -a -G nvm gitpod && sudo chown -R gitpod /usr/local/sdkman /usr/local/share/nvm

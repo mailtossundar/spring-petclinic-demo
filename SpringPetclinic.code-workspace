@@ -1,0 +1,14 @@
+{
+	"folders": [
+		{
+			"path": "../ResetDevOps/freshresetDevOps"
+		},
+		{
+			"path": "."
+		},
+		{
+			"path": "../../terraform/azurelab"
+		}
+	],
+	"settings": {}
+}
