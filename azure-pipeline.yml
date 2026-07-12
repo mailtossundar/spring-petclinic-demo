@@ -1,6 +1,6 @@
 # azure-pipeline.yml
 trigger:
-- main
+- main-login
 
 pool:
   name: Default
