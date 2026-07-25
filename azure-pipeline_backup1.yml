@@ -1,0 +1,43 @@
+# azure-pipeline.yml
+trigger:
+- main-login
+
+pool:
+  name: Default
+
+steps:
+
+- checkout: self
+
+- task: Maven@4
+  displayName: 'Build Spring PetClinic'
+  inputs:
+    mavenPomFile: 'pom.xml'
+    goals: 'clean package -DskipTests'
+    publishJUnitResults: false
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.17'
+    mavenVersionOption: 'Default'
+
+- task: CopyFiles@2
+  displayName: 'Copy JAR to Artifact Staging Directory'
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)/target'
+    Contents: '*.jar'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Build Artifact'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'PetClinic'
+    publishLocation: 'Container'
+
+- script: docker build -t petclinic:latest .
+  displayName: 'Build Docker Image'
+
+- script: kubectl apply -f deployment.yaml
+  displayName: 'Deploy Deployment'
+
+- script: kubectl apply -f service.yaml
+  displayName: 'Deploy Service'
