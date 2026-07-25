@@ -26,6 +26,13 @@ steps:
     Contents: '*.jar'
     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Build Artifact'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'PetClinic'
+    publishLocation: 'Container'
+
 - script: docker build -t petclinic:latest .
   displayName: 'Build Docker Image'
 
