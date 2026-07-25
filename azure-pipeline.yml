@@ -19,6 +19,13 @@ steps:
     jdkVersionOption: '1.17'
     mavenVersionOption: 'Default'
 
+- task: CopyFiles@2
+  displayName: 'Copy JAR to Artifact Staging Directory'
+  inputs:
+    SourceFolder: '$(Build.SourcesDirectory)/target'
+    Contents: '*.jar'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
 - script: docker build -t petclinic:latest .
   displayName: 'Build Docker Image'
 
