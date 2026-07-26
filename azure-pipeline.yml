@@ -3,17 +3,19 @@ trigger:
 - main-login
 
 pool:
- name: Default
+  name: Default
 
 stages:
 
 - stage: Build
   displayName: Build Stage
+
   jobs:
   - job: BuildJob
     displayName: Build Job
     steps:
     - checkout: self
+
     - task: Maven@4
       displayName: 'Build Spring PetClinic'
       inputs:
@@ -24,25 +26,25 @@ stages:
        jdkVersionOption: '1.17'
        mavenVersionOption: 'Default'
 
-    - task: CopyFiles@2
-      displayName: 'Copy JAR to Artifact Staging Directory'
-      inputs:
-      SourceFolder: '$(Build.SourcesDirectory)/target'
-      Contents: '*.jar'
-      TargetFolder: '$(Build.ArtifactStagingDirectory)'
-
-    - task: PublishBuildArtifacts@1
-      displayName: 'Publish Build Artifact'
+  - task: CopyFiles@2
+    displayName: 'Copy JAR to Artifact Staging Directory'
     inputs:
-      PathtoPublish: '$(Build.ArtifactStagingDirectory)'
-      ArtifactName: 'PetClinic'
-      publishLocation: 'Container'
+     SourceFolder: '$(Build.SourcesDirectory)/target'
+     Contents: '*.jar'
+     TargetFolder: '$(Build.ArtifactStagingDirectory)'
 
-  - script: docker build -t petclinic:latest .
-    displayName: 'Build Docker Image'
+  - task: PublishBuildArtifacts@1
+    displayName: 'Publish Build Artifact'
+    inputs:
+     PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+     ArtifactName: 'PetClinic'
+     publishLocation: 'Container'
 
-  - script: kubectl apply -f deployment.yaml
-    displayName: 'Deploy Deployment'
+- script: docker build -t petclinic:latest .
+  displayName: 'Build Docker Image'
 
-  - script: kubectl apply -f service.yaml
-    displayName: 'Deploy Service'
+- script: kubectl apply -f deployment.yaml
+  displayName: 'Deploy Deployment'
+
+- script: kubectl apply -f service.yaml
+  displayName: 'Deploy Service'
