@@ -1,4 +1,5 @@
 # azure-pipeline.yml
+# Including stages, jobs, and steps for building and deploying the Spring PetClinic application
 trigger:
 - main-login
 
