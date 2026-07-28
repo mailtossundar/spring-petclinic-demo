@@ -68,12 +68,22 @@ stages:
     steps:
 
     - checkout: self
+    - task: DownloadBuildArtifacts@1
+      displayName: 'Download Build Artifact'
 
-    - script: docker build -t petclinic:latest .
-      displayName: 'Build Docker Image'
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'PetClinic'
+        downloadPath: '$(System.ArtifactsDirectory)'
+    - script: dir $(System.ArtifactsDirectory)
+      displayName: 'Verify Downloaded Artifact'
 
-    - script: kubectl apply -f deployment.yaml
-      displayName: 'Deploy Deployment'
+    #- script: docker build -t petclinic:latest .
+    #  displayName: 'Build Docker Image'
 
-    - script: kubectl apply -f service.yaml
-      displayName: 'Deploy Service'
+    #- script: kubectl apply -f deployment.yaml
+    #  displayName: 'Deploy Deployment'
+
+    #- script: kubectl apply -f service.yaml
+    #  displayName: 'Deploy Service'
