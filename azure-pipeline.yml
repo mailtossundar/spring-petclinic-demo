@@ -76,8 +76,8 @@ stages:
         downloadType: 'single'
         artifactName: 'PetClinic'
         downloadPath: '$(System.ArtifactsDirectory)'
-    - script: dir $(System.ArtifactsDirectory)
-      displayName: 'Verify Downloaded Artifact'
+    - script: dir $(System.ArtifactsDirectory)\PetClinic
+      displayName: 'Verify Downloaded JAR'
 
     #- script: docker build -t petclinic:latest .
     #  displayName: 'Build Docker Image'
