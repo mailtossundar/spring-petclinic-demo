@@ -50,6 +50,9 @@ stages:
         ArtifactName: 'PetClinic'
         publishLocation: 'Container'
 
+    - script: docker build -t petclinic:latest .
+      displayName: 'Build Docker Image'
+
 
 #=========================================================
 # DEPLOY STAGE
@@ -76,6 +79,7 @@ stages:
         downloadType: 'single'
         artifactName: 'PetClinic'
         downloadPath: '$(System.ArtifactsDirectory)'
+        
     - script: dir $(System.ArtifactsDirectory)\PetClinic
       displayName: 'Verify Downloaded JAR'
 
