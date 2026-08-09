@@ -1,0 +1,93 @@
+# azure-pipeline.yml
+# Including stages, jobs, and steps for building and deploying the Spring PetClinic Project
+# indroducing build and deploy stage.
+
+trigger:
+- main-login
+
+pool:
+  name: Default
+
+stages:
+
+#=========================================================
+# BUILD STAGE
+#=========================================================
+
+- stage: Build
+  displayName: 'Build Stage'
+
+  jobs:
+
+  - job: BuildJob
+    displayName: 'Build Job'
+
+    steps:
+
+    - checkout: self
+
+    - task: Maven@4
+      displayName: 'Build Spring PetClinic'
+      inputs:
+        mavenPomFile: 'pom.xml'
+        goals: 'clean package -DskipTests'
+        publishJUnitResults: false
+        javaHomeOption: 'JDKVersion'
+        jdkVersionOption: '1.17'
+        mavenVersionOption: 'Default'
+
+    - task: CopyFiles@2
+      displayName: 'Copy JAR to Artifact Staging Directory'
+      inputs:
+        SourceFolder: '$(Build.SourcesDirectory)/target'
+        Contents: '*.jar'
+        TargetFolder: '$(Build.ArtifactStagingDirectory)'
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Build Artifact'
+      inputs:
+        PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+        ArtifactName: 'PetClinic'
+        publishLocation: 'Container'
+
+    - script: docker build -t petclinic:latest .
+      displayName: 'Build Docker Image'
+
+
+#=========================================================
+# DEPLOY STAGE
+#=========================================================
+
+- stage: Deploy
+  displayName: 'Deploy Stage'
+
+  dependsOn: Build
+
+  jobs:
+
+  - job: DeployJob
+    displayName: 'Deploy Job'
+
+    steps:
+
+    - checkout: self
+    - task: DownloadBuildArtifacts@1
+      displayName: 'Download Build Artifact'
+
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'PetClinic'
+        downloadPath: '$(System.ArtifactsDirectory)'
+        
+    - script: dir $(System.ArtifactsDirectory)\PetClinic
+      displayName: 'Verify Downloaded JAR'
+
+    #- script: docker build -t petclinic:latest .
+    #  displayName: 'Build Docker Image'
+
+    #- script: kubectl apply -f deployment.yaml
+    #  displayName: 'Deploy Deployment'
+
+    #- script: kubectl apply -f service.yaml
+    #  displayName: 'Deploy Service'
