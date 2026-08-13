@@ -81,8 +81,8 @@ stages:
        dir target
       displayName: 'Verify Maven Target Directory'
 
-    - script: docker build -t petclinic:latest .
-      displayName: 'Build Docker Image'
+#    - script: docker build -t petclinic:latest .
+#      displayName: 'Build Docker Image'
 
 
 # =========================================================
@@ -102,8 +102,60 @@ stages:
 
     - checkout: self
 
+    # =====================================================
+    # DOWNLOAD ARTIFACT PRODUCED BY BUILD STAGE
+    # =====================================================
+
+    - task: DownloadBuildArtifacts@1
+      displayName: 'Download Build Artifact'
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'PetClinic'
+        downloadPath: '$(System.ArtifactsDirectory)'
+
+    # =====================================================
+    # VERIFY DOWNLOADED JAR
+    # =====================================================
+
+    - powershell: |
+        Write-Host "=========================================="
+        Write-Host "Downloaded PetClinic Artifact"
+        Write-Host "=========================================="
+
+        Get-ChildItem "$(System.ArtifactsDirectory)\PetClinic"
+
+      displayName: 'Verify Downloaded JAR'
+
+    # =====================================================
+    # COPY DOWNLOADED JAR TO DOCKER BUILD CONTEXT
+    # =====================================================
+
+    - powershell: |
+        Write-Host "=========================================="
+        Write-Host "Preparing JAR for Docker Build"
+        Write-Host "=========================================="
+
+        Copy-Item `
+          "$(System.ArtifactsDirectory)\PetClinic\*.jar" `
+          "$(Build.SourcesDirectory)\app.jar" `
+          -Force
+
+        Write-Host "Docker build context:"
+        Get-ChildItem "$(Build.SourcesDirectory)\app.jar"
+
+      displayName: 'Prepare JAR for Docker Build'
+
+    # =====================================================
+    # BUILD DOCKER IMAGE USING DOWNLOADED ARTIFACT
+    # =====================================================
+
     - script: docker build -t petclinic:latest .
       displayName: 'Build Docker Image'
+
+    # =====================================================
+    # DEPLOY TO KUBERNETES
+    # =====================================================
 
     - script: kubectl apply -f deployment.yaml
       displayName: 'Deploy Deployment'
