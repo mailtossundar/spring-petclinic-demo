@@ -76,6 +76,11 @@ stages:
         ArtifactName: 'PetClinic'
         publishLocation: 'Container'
 
+    - script: |
+       echo "Checking target directory..."
+       dir target
+      displayName: 'Verify Maven Target Directory'
+
     - script: docker build -t petclinic:latest .
       displayName: 'Build Docker Image'
 
@@ -97,27 +102,11 @@ stages:
 
     - checkout: self
 
-    - task: DownloadBuildArtifacts@1
-      displayName: 'Download Build Artifact'
-      inputs:
-        buildType: 'current'
-        downloadType: 'single'
-        artifactName: 'PetClinic'
-        downloadPath: '$(System.ArtifactsDirectory)'
+    - script: docker build -t petclinic:latest .
+      displayName: 'Build Docker Image'
 
-    - script: dir $(System.ArtifactsDirectory)\PetClinic
-      displayName: 'Verify Downloaded JAR'
+    - script: kubectl apply -f deployment.yaml
+      displayName: 'Deploy Deployment'
 
-
-    # =====================================================
-    # FUTURE DEPLOYMENT STEPS
-    # =====================================================
-
-    # - script: docker build -t petclinic:latest .
-    #   displayName: 'Build Docker Image'
-
-    # - script: kubectl apply -f deployment.yaml
-    #   displayName: 'Deploy Deployment'
-
-    # - script: kubectl apply -f service.yaml
-    #   displayName: 'Deploy Service'
+    - script: kubectl apply -f service.yaml
+      displayName: 'Deploy Service'
