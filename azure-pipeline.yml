@@ -1,6 +1,7 @@
 # azure-pipeline.yml
-# Including stages, jobs, and steps for building and deploying the Spring PetClinic Project
-# indroducing build and deploy stage.
+
+# Spring PetClinic - Build and Deploy Pipeline
+# Module 2.2 - Workload Identity Federation Test
 
 trigger:
 - main-login
@@ -10,21 +11,46 @@ pool:
 
 stages:
 
-#=========================================================
+# =========================================================
 # BUILD STAGE
-#=========================================================
+# =========================================================
 
 - stage: Build
   displayName: 'Build Stage'
 
   jobs:
-
   - job: BuildJob
     displayName: 'Build Job'
 
     steps:
 
     - checkout: self
+
+    # =====================================================
+    # AZURE WIF AUTHENTICATION TEST
+    # =====================================================
+
+    - task: AzureCLI@2
+      displayName: 'Test Azure WIF Authentication'
+      inputs:
+        azureSubscription: 'PetClinic-AzureRM'
+        scriptType: 'ps'
+        scriptLocation: 'inlineScript'
+        inlineScript: |
+          Write-Host "=========================================="
+          Write-Host "Azure WIF Authentication Test"
+          Write-Host "=========================================="
+
+          az account show --output table
+
+          Write-Host ""
+          Write-Host "Azure Subscription:"
+          az account show --query name --output tsv
+
+          Write-Host ""
+          Write-Host "Azure Tenant:"
+          az account show --query tenantId --output tsv
+
 
     - task: Maven@4
       displayName: 'Build Spring PetClinic'
@@ -50,10 +76,13 @@ stages:
         ArtifactName: 'PetClinic'
         publishLocation: 'Container'
 
+    - script: docker build -t petclinic:latest .
+      displayName: 'Build Docker Image'
 
-#=========================================================
+
+# =========================================================
 # DEPLOY STAGE
-#=========================================================
+# =========================================================
 
 - stage: Deploy
   displayName: 'Deploy Stage'
@@ -61,7 +90,6 @@ stages:
   dependsOn: Build
 
   jobs:
-
   - job: DeployJob
     displayName: 'Deploy Job'
 
@@ -69,11 +97,27 @@ stages:
 
     - checkout: self
 
-    - script: docker build -t petclinic:latest .
-      displayName: 'Build Docker Image'
+    - task: DownloadBuildArtifacts@1
+      displayName: 'Download Build Artifact'
+      inputs:
+        buildType: 'current'
+        downloadType: 'single'
+        artifactName: 'PetClinic'
+        downloadPath: '$(System.ArtifactsDirectory)'
 
-    - script: kubectl apply -f deployment.yaml
-      displayName: 'Deploy Deployment'
+    - script: dir $(System.ArtifactsDirectory)\PetClinic
+      displayName: 'Verify Downloaded JAR'
 
-    - script: kubectl apply -f service.yaml
-      displayName: 'Deploy Service'
+
+    # =====================================================
+    # FUTURE DEPLOYMENT STEPS
+    # =====================================================
+
+    # - script: docker build -t petclinic:latest .
+    #   displayName: 'Build Docker Image'
+
+    # - script: kubectl apply -f deployment.yaml
+    #   displayName: 'Deploy Deployment'
+
+    # - script: kubectl apply -f service.yaml
+    #   displayName: 'Deploy Service'
