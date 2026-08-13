@@ -76,6 +76,11 @@ stages:
         ArtifactName: 'PetClinic'
         publishLocation: 'Container'
 
+    - script: |
+       echo "Checking target directory..."
+       dir target
+      displayName: 'Verify Maven Target Directory'
+
     - script: docker build -t petclinic:latest .
       displayName: 'Build Docker Image'
 
