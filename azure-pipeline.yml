@@ -8,10 +8,6 @@ trigger:
 
 pool:
   name: Default
-  
-  variables:
-    azureServiceConnection: 'PetClinic-AzureRM'
-    EnvironmentName: 'Development'
 
 stages:
 
@@ -37,7 +33,7 @@ stages:
     - task: AzureCLI@2
       displayName: 'Test Azure WIF Authentication'
       inputs:
-        azureSubscription: '$(azureServiceConnection)'
+        azureSubscription: 'PetClinic-AzureRM'
         scriptType: 'ps'
         scriptLocation: 'inlineScript'
         inlineScript: |
