@@ -1,0 +1,18 @@
+[33m560b865[m[33m ([m[1;36mHEAD[m[33m -> [m[1;32mmain-login[m[33m, [m[1;31morigin/main-login[m[33m)[m indroducing variables
+[33m67a0c93[m[33m ([m[1;31morigin/feature-login[m[33m, [m[1;32mfeature-login[m[33m)[m indroducig variables
+[33m158b514[m[33m ([m[1;31morigin/develop-login[m[33m, [m[1;32mdevelop-login[m[33m)[m Build docker image from published artifacts
+[33md1eb431[m  post adding checking target directory task
+[33m2bf233b[m WIF Test Task added
+[33me2cc629[m post indruducing build and deploy stages
+[33m65a7ffc[m included stages, jobs and steps 26July2026 16:26
+[33m2089621[m Beforeadding Stages, jobs and steps
+[33mcfe4d4d[m restored previous working version of yamlfile
+[33mf6b2b81[m Merge branch 'develop-login' into main-login
+[33mae66e65[m Backup yaml restored
+[33mdff77d0[m intendation applited
+[33md927ab0[m correct indentation applited
+[33m27239ab[m Publishing task added
+[33mec51f83[m task file copy task added
+[33m6bb649d[m Branch Nanme updated ont he pipeline
+[33m7101659[m yaml file modification
+[33m885939b[m[33m ([m[1;31morigin/hotfix-login[m[33m, [m[1;31morigin/Release-login[m[33m, [m[1;31morigin/Production-login[m[33m, [m[1;32mhotfix-login[m[33m, [m[1;32mRelease-login[m[33m, [m[1;32mProduction-login[m[33m)[m Add Kubernetes Manifests and Azure Pipeline
